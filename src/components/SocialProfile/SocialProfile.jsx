@@ -1,6 +1,8 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import user from './user.json';
+
+import style from './SocialProfile.module.scss'
 
 function SocialProfile() {
     return <>
@@ -15,34 +17,53 @@ function SocialProfile() {
 };
 
 const Profile = ({ avatar, name, tag, location, stats }) => (
-  <div className="profile">
-  <div className="description">
-    <img
+  <div className={style.profile}>
+  <div className={style.description}>
+    <img 
             src={avatar}
             alt="Аватар пользователя"
-            className="avatar"
+            className={style.avatar}
             width='150'
     />
-    <p className="name">{name}</p>
-    <p className="tag">@{tag}</p>
-    <p className="location">{location}</p>
+    <p className={style.name}>{name}</p>
+    <p className={style.tag}>@{tag}</p>
+    <p className={style.location}>{location}</p>
   </div>
 
-  <ul className="stats">
-    <li>
-      <span className="label">Followers</span>
-      <span className="quantity"> {stats.followers}</span>
+  <ul className={style.stats}>
+    <li className = {style.item}>
+      <span className={style.label}>Followers</span>
+      <span className={style.quantity}> {stats.followers}</span>
     </li>
-    <li>
-      <span className="label">Views</span>
-      <span className="quantity"> {stats.views}</span>
+    <li className = {style.item}>
+      <span className={style.label}>Views</span>
+      <span className={style.quantity}> {stats.views}</span>
     </li>
-    <li>
-      <span className="label">Likes</span>
-      <span className="quantity"> {stats.likes}</span>
+    <li className = {style.item}>
+      <span className={style.label}>Likes</span>
+      <span className={style.quantity}> {stats.likes}</span>
     </li>
   </ul>
-    </div>)
+  </div>)
+    
+Profile.defaultProps = {
+  name: 'Maksym',
+  location: 'Kyiv',
+}
+
+Profile.propTypes = {
+  name: PropTypes.string.isRequired,
+  tag: PropTypes.string.isRequired,
+  location: PropTypes.string.isRequired,
+  avatar: PropTypes.string,
+  stats: PropTypes.shape({
+    followers: PropTypes.number,
+    views: PropTypes.number,
+    likes: PropTypes.number,
+  })
+
+};
+
 
 
 

@@ -1,10 +1,12 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import friends from './friends.json'
+
+import style from './FriendList.module.scss'
 
 function FriendList() {
     return <>
-        <ul className="friend-list">
+        <ul className={style.friendList}>
            <Friend props={friends} />
         </ul>
     </>
@@ -13,13 +15,23 @@ function FriendList() {
 const Friend = (props) => {
     return <>
         {friends.map((friend) => (
-            <li className="item" key = {friend.id}>
-                <span className="status">{friend.isOnline}</span>
+            <li className={style.item} key = {friend.id}>
+                <span className={style.status}>{friend.isOnline ? 'Online' : 'Offline'}</span>
                 <img className="avatar" src={friend.avatar} alt="" width="48" />
                 <p className="name">{friend.name}</p>
             </li>
         ))}
     </>
 }
+
+
+
+// Friend.defaultProps = {
+    
+// }
+
+// Friend.PropTypes = {
+
+// }
 
 export default FriendList;
