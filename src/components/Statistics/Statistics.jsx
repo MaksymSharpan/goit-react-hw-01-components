@@ -1,43 +1,46 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import statisticalData from './statistical-data.json';
 
-import style from './Statistics.module.scss'
+import style from './Statistics.module.scss';
 
-function Statistics() {
-    return <>
+function Statistics({ title, stats }) {
+  const statElements = stats.map(prop => (
+    <li
+      className={style.item}
+      key={prop.id}
+      style={{ backgroundColor: randomColor() }}
+    >
+      <span className={style.label}>{prop.label}</span>
+      <span className={style.percentage}>{prop.percentage}%</span>
+    </li>
+  ));
+  return (
+    <>
       <section className={style.statistics}>
-         <h2 className={style.title}>Upload stats</h2>
-            <ul className={style.statList}>
-                <Stats props = {statisticalData}/>
-            </ul>
+        {title && <h2 className={style.title}>{title}</h2>}
+        <ul className={style.statList}>{statElements}</ul>
       </section>
     </>
-    
-};
-
-const Stats = (props) => {
-    return <>
-        {statisticalData.map((prop) => (
-            <li className={style.item} key = {prop.id} style={{backgroundColor: randomColor()}}>
-                <span className={style.label}>{prop.label}</span>
-                <span className={style.percentage}>{prop.percentage}%</span>
-            </li>
-        ))}
-    </>
+  );
 }
 
 function randomColor() {
-  return "#" + Math.floor(Math.random() * 16777215).toString(16);
+  return '#' + Math.floor(Math.random() * 16777215).toString(16);
 }
 
-// Stats.defaultProps = {
-// 
-// }
+Statistics.defaultProps = {
+  stats: [],
+};
 
-// Stats.PropTypes = {
-//     
-// }
+Statistics.propTypes = {
+  title: PropTypes.string,
+  stats: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string,
+      label: PropTypes.string,
+      percentage: PropTypes.number,
+    }),
+  ).isRequired,
+};
 
-        
 export default Statistics;
